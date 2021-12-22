@@ -22,20 +22,38 @@ const MasterView = () => {
 
   useEffect(() => {
     if (data && key) {
-      updateLockState(key, data);
+      updateLockState(key, data as PuzzleController);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, key]);
 
-  const updateLockState = async (key: string, data: any) => {
+  const updateLockState = async (key: string, data: PuzzleController) => {
     const lockIndex = data.puzzleNodes.findIndex(
       (el: PuzzleNode) => el.key === key
     );
+
     const update = data.puzzleNodes;
-    update[lockIndex] = { key: key, state: LockState.SUCCESS };
+    const lockState = determineLockState(lockIndex, data);
+    update[lockIndex] = { key: key, state: lockState };
 
     await updateDoc(ref, {
       puzzleNodes: update,
     });
+  };
+
+  const determineLockState = (
+    lockIndex: number,
+    data: PuzzleController
+  ): LockState => {
+    if (lockIndex === 0) {
+      return LockState.SUCCESS;
+    }
+
+    if (data.puzzleNodes[lockIndex - 1].state !== LockState.SUCCESS) {
+      return LockState.FAIL;
+    }
+
+    return LockState.SUCCESS;
   };
 
   return (
