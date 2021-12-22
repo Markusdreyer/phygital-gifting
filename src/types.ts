@@ -1,11 +1,11 @@
-enum PuzzleState {
+export enum PuzzleState {
   WAITING = "WAITING",
   ONGOING = "ONGOING",
   FAILED = "FAILED",
   SUCCESSFUL = "SUCCESSFUL",
 }
 
-enum LockState {
+export enum LockState {
   WAITING = "WAITING",
   FAIL = "FAIL",
   SUCCESS = "SUCCESS",
