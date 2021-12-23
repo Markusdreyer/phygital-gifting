@@ -31,7 +31,7 @@ const Progress = () => {
       {data && data.puzzleState === PuzzleState.ONGOING && (
         <CountdownCircleTimer
           isPlaying
-          duration={0}
+          duration={10}
           colors={[
             ["#219653", 0.33],
             ["#F2C94C", 0.33],
@@ -50,6 +50,15 @@ const Progress = () => {
           <img src={require("../images/dev.png")} alt="restart"></img>
           <h2 className="font-sans text-xl font-bold">
             Tiden gikk ut! Skann for å prøve på nytt.
+          </h2>
+        </div>
+      )}
+      {data && data.puzzleState === PuzzleState.SUCCESSFUL && (
+        <div className="flex flex-col">
+          <img src={require("../images/dev.png")} alt="restart"></img>
+          {(document.body.style.backgroundColor = "#219653")}
+          <h2 className="font-sans text-xl font-bold">
+            Du løste rebusen! Skann for siste hint.
           </h2>
         </div>
       )}
