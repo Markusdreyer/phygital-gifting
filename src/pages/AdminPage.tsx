@@ -1,13 +1,9 @@
-import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useFirestore, useFirestoreDocData } from "reactfire";
 import PuzzleNodeList from "../components/PuzzleNodeList";
-import { PuzzleController, PuzzleNode } from "../types";
 
 const AdminPage = () => {
   const addPuzzleNode = async () => {};
-  const removePuzzleNode = () => {};
 
   return (
     <>

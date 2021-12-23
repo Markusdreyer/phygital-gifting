@@ -1,9 +1,10 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import { useFirestore, useFirestoreDocData } from "reactfire";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { useFirestore } from "reactfire";
 import AdminPage from "./pages/AdminPage";
 import MasterView from "./pages/MasterView";
+import SolutionPage from "./pages/SolutionPage";
 import { LockState, PuzzleController, PuzzleNode, PuzzleState } from "./types";
 
 const App = () => {
@@ -16,6 +17,11 @@ const App = () => {
 
   const updateLockState = async (key: string) => {
     let update = (await (await getDoc(ref)).data()) as PuzzleController;
+
+    if (update.puzzleState === PuzzleState.FAILED) {
+      return;
+    }
+
     const lockIndex = update.puzzleNodes.findIndex(
       (el: PuzzleNode) => el.key === key
     );
@@ -31,7 +37,7 @@ const App = () => {
 
   const resetPuzzle = async () => {
     let update = (await (await getDoc(ref)).data()) as PuzzleController;
-
+    document.body.style.backgroundColor = "#FFFF";
     update.puzzleNodes = update.puzzleNodes.map((el: PuzzleNode) => ({
       key: el.key,
       state: LockState.WAITING,
@@ -47,7 +53,6 @@ const App = () => {
   useEffect(() => {
     if (key) {
       console.log("KEY CHANGED");
-
       if (key === "start") {
         resetPuzzle();
         return;
@@ -78,8 +83,14 @@ const App = () => {
   return (
     <div className="App">
       <Routes>
+        {(document.body.style.backgroundColor = "#FFFF")}
         <Route path="/" element={<MasterView />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/solution" element={<SolutionPage />} />
+        <Route
+          path="/redirect"
+          element={<Navigate replace to="/?key=start" />}
+        />
       </Routes>
     </div>
   );

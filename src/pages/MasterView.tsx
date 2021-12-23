@@ -1,9 +1,9 @@
-import { doc, updateDoc } from "firebase/firestore";
-import React, { useCallback, useEffect } from "react";
+import React from "react";
+import { doc } from "firebase/firestore";
 import { useFirestore, useFirestoreDocData } from "reactfire";
 import Lock from "../components/Lock";
 import Progress from "../components/Progress";
-import { LockState, PuzzleController, PuzzleNode, PuzzleState } from "../types";
+import { PuzzleNode } from "../types";
 
 const MasterView = () => {
   const firestore = useFirestore();

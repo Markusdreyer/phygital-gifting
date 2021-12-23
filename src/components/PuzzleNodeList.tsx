@@ -2,7 +2,6 @@ import { doc } from "firebase/firestore";
 import React from "react";
 import { useFirestore, useFirestoreDocData } from "reactfire";
 import { PuzzleNode } from "../types";
-import LoadingSpinner from "./LoadingSpinner";
 
 const PuzzleNodeList = () => {
   const firestore = useFirestore();
