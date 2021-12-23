@@ -6,9 +6,6 @@ import PuzzleNodeList from "../components/PuzzleNodeList";
 import { PuzzleController, PuzzleNode } from "../types";
 
 const AdminPage = () => {
-  const firestore = useFirestore();
-  const ref = doc(firestore, "phygital", "masterView");
-
   const addPuzzleNode = async () => {};
   const removePuzzleNode = () => {};
 

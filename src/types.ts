@@ -12,7 +12,6 @@ export enum LockState {
 }
 
 export interface PuzzleController {
-  puzzleStart: Date;
   puzzleState: PuzzleState;
   puzzleNodes: PuzzleNode[];
 }

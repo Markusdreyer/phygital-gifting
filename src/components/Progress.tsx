@@ -1,11 +1,9 @@
 import { CircularProgress } from "@mui/material";
-import React from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import React, { useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { useFirestore, useFirestoreDocData } from "reactfire";
 import { PuzzleController, PuzzleState } from "../types";
-
-interface Props {
-  puzzleController?: PuzzleController;
-}
 
 const colorStateLookup: Record<PuzzleState, string> = {
   WAITING: "#828282",
@@ -14,21 +12,39 @@ const colorStateLookup: Record<PuzzleState, string> = {
   SUCCESSFUL: "#219653",
 };
 
-const Progress: React.FC<Props> = ({ puzzleController }) => {
-  if (puzzleController?.puzzleState === PuzzleState.WAITING) return null;
+const Progress = () => {
+  const firestore = useFirestore();
+  const ref = doc(firestore, "phygital", "masterView");
+  const { data } = useFirestoreDocData(ref);
+
+  if (data && data.puzzleState === PuzzleState.WAITING) return null;
+
+  const updatePuzzleState = async () => {
+    await updateDoc(ref, {
+      puzzleState: PuzzleState.FAILED,
+    });
+  };
 
   return (
-    <CountdownCircleTimer
-      isPlaying
-      duration={10}
-      colors={[
-        ["#219653", 0.33],
-        ["#F2C94C", 0.33],
-        ["#EB5757", 0.33],
-      ]}
-    >
-      {({ remainingTime }: any) => remainingTime}
-    </CountdownCircleTimer>
+    <>
+      {data && data.puzzleState === PuzzleState.ONGOING && (
+        <CountdownCircleTimer
+          isPlaying
+          duration={10}
+          colors={[
+            ["#219653", 0.33],
+            ["#F2C94C", 0.33],
+            ["#EB5757", 0.33],
+          ]}
+          onComplete={() => {
+            updatePuzzleState();
+            return [false, 0];
+          }}
+        >
+          {({ remainingTime }: any) => remainingTime}
+        </CountdownCircleTimer>
+      )}
+    </>
   );
 };
 
