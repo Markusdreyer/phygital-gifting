@@ -23,6 +23,7 @@ const Progress = () => {
     await updateDoc(ref, {
       puzzleState: PuzzleState.FAILED,
     });
+    document.body.style.backgroundColor = "#EB5757";
   };
 
   return (
@@ -30,7 +31,7 @@ const Progress = () => {
       {data && data.puzzleState === PuzzleState.ONGOING && (
         <CountdownCircleTimer
           isPlaying
-          duration={10}
+          duration={0}
           colors={[
             ["#219653", 0.33],
             ["#F2C94C", 0.33],
@@ -43,6 +44,14 @@ const Progress = () => {
         >
           {({ remainingTime }: any) => remainingTime}
         </CountdownCircleTimer>
+      )}
+      {data && data.puzzleState === PuzzleState.FAILED && (
+        <div className="flex flex-col">
+          <img src={require("../images/dev.png")} alt="restart"></img>
+          <h2 className="font-sans text-xl font-bold">
+            Tiden gikk ut! Skann for å prøve på nytt.
+          </h2>
+        </div>
       )}
     </>
   );

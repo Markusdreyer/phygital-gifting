@@ -16,7 +16,7 @@ I define a poor wrapping as a wrapping in which the paper may be overly crumbled
 
 <figure>
 <p align="center">
-<img src="./images/poor-wrap.jpeg" alt="poor wrapping" style="width:50%">
+<img src="src/images/poor-wrap.jpeg" alt="poor wrapping" style="width:50%">
 <figcaption align="center"><b>Fig. 1: Poorly wrapped gift</b></figcaption>
 </p>
 </figure>
@@ -71,7 +71,7 @@ The master view provides an interface that reveal all the puzzle nodes as well a
 
 <figure>
 <p align="center">
-<img src="./images/master-view.png" alt="master view" style="width:100%">
+<img src="src/images/master-view.png" alt="master view" style="width:100%">
 <figcaption align="center"><b>Fig. 2: Master view</b></figcaption>
 </p>
 </figure>
@@ -86,7 +86,7 @@ The puzzle nodes consist of a QR and may exist both in the physical and digital 
 
 <figure>
 <p align="center">
-<img src="./images/puzzle-node.png" alt="puzzle node" style="width:80%">
+<img src="src/images/puzzle-node.png" alt="puzzle node" style="width:80%">
 <figcaption align="center"><b>Fig. 3: Puzzle nodes</b></figcaption>
 </p>
 </figure>

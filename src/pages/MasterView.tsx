@@ -13,7 +13,7 @@ const MasterView = () => {
   return (
     <>
       {console.log(data)}
-      <div className="flex justify-between m-8">
+      <div className="flex justify-between p-8 bg-white">
         {data &&
           data.puzzleNodes.map((el: PuzzleNode) => <Lock puzzleNode={el} />)}
       </div>
