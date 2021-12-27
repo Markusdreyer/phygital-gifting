@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useFirestore, useFirestoreDocData } from "reactfire";
 import { PuzzleController, PuzzleState } from "../types";
+import { resetPuzzle } from "../utils";
 
 const Progress = () => {
   const firestore = useFirestore();
@@ -48,8 +49,14 @@ const Progress = () => {
           {(document.body.style.backgroundColor = "#EB5757")}
 
           <h2 className="font-sans text-xl font-bold">
-            Oops, du gjorde noe feil! Skann første lappen for å starte på nytt.
+            Oops, du gjorde noe feil!
           </h2>
+          <button
+            className="flex-1 m-16 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => resetPuzzle(ref)}
+          >
+            Start på nytt
+          </button>
         </div>
       )}
       {data && data.puzzleState === PuzzleState.SUCCESSFUL && (

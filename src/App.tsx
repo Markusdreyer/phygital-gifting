@@ -6,6 +6,7 @@ import AdminPage from "./pages/AdminPage";
 import MasterView from "./pages/MasterView";
 import SolutionPage from "./pages/SolutionPage";
 import { LockState, PuzzleController, PuzzleNode, PuzzleState } from "./types";
+import { resetPuzzle } from "./utils";
 
 const App = () => {
   const search = window.location.search;
@@ -35,26 +36,11 @@ const App = () => {
     });
   };
 
-  const resetPuzzle = async () => {
-    let update = (await (await getDoc(ref)).data()) as PuzzleController;
-    document.body.style.backgroundColor = "#FFFF";
-    update.puzzleNodes = update.puzzleNodes.map((el: PuzzleNode) => ({
-      key: el.key,
-      state: LockState.WAITING,
-    }));
-    update.puzzleState = PuzzleState.WAITING;
-    console.log("RESET PAYLOAD:: ", update);
-    await updateDoc(ref, {
-      puzzleNodes: update.puzzleNodes,
-      puzzleState: update.puzzleState,
-    });
-  };
-
   useEffect(() => {
     if (key) {
       console.log("KEY CHANGED");
       if (key === "start") {
-        resetPuzzle();
+        resetPuzzle(ref);
         return;
       }
 
